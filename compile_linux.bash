@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir debug
 nasm -felf32 src/boot.asm -o debug/boot.o
 i686-elf-gcc -c src/kernel.c -o debug/kernel.o -std=gnu99 -ffreestanding -masm=intel -O2 -Wall -Wextra
 i686-elf-gcc -c src/common.c -o debug/common.o -std=gnu99 -ffreestanding -masm=intel -O2 -Wall -Wextra

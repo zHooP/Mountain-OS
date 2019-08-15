@@ -148,5 +148,13 @@ void terminal_writestr_c(const char* data, uint8_t color)
 void kernel_main(void)
 {
 	terminal_initialize();
-	terminal_writestr("Hello World!");
+	terminal_writestr_c("                ooooo      ssss\n", 0xC);
+    terminal_writestr_c("              oo     oo   ss   \n", 0x7);
+    terminal_writestr_c("mm  mm  mm    oo     oo    sss \n", 0x9);
+    terminal_writestr_c("mmmm  mm  mm  oo     oo      ss\n", 0xD);
+    terminal_writestr_c("mm    mm  mm  oo     oo     ss \n", 0xC);
+    terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
+    terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
+    terminal_writestr("Welcome! Wilkommen! Bun venit!");
+
 }
