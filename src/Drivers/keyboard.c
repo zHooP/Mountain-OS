@@ -99,5 +99,5 @@ uint8_t keyboard_read_key()
         while(key_code==0){}
 		return key_code;
 	}
-    return 0;
+    return key_code;
 }
