@@ -71,7 +71,7 @@ enum KEYCODE {
 	M_PRESSED = 0x32,
 	M_RELEASED = 0xB2,
 
-	ZERO_PRESSED = 0x29,
+	ZERO_PRESSED = 0xB,
 	ONE_PRESSED = 0x2,
 	NINE_PRESSED = 0xA,
 
@@ -97,7 +97,7 @@ uint8_t keyboard_read_key()
 	if (inportb(0x64) & 1){
         key_code = inportb(0x60);
         while(key_code==0){}
-		return key_code;
 	}
     return key_code;
 }
+
