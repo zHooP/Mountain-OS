@@ -1,4 +1,5 @@
 #include "common.h"
+#include "Drivers/keyboard.h"
 
 #if defined(__linux__)
 #error "You are not using a cross-compiler, you will most certainly run into trouble"
@@ -54,8 +55,6 @@ size_t terminal_row;
 size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
-
-
 
 void update_cursor(uint16_t x, uint16_t y)
 {
@@ -155,6 +154,5 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm  oo     oo     ss \n", 0xC);
     terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
-    terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!");
-
+    terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
 }

@@ -1,11 +1,20 @@
-#include <keyboard.h>
+#include "keyboard.h"
 
-MODULE("KBD");
 
-uint8_t lastkey = 0;
-uint8_t* keycache = 0;
-uint16_t key_loc = 0;
-uint8_t __kbd_enabled = 0;
+void outportb(uint16_t port, uint16_t value)
+{
+    asm("mov dx, %0"::"r" (port):);
+    asm("mov ax, %0"::"r" (value):);
+    asm("out dx, ax");
+}
+uint16_t inportb(uint16_t port)
+{
+    uint16_t r;
+    asm("mov dx, %0"::"r" (port):);
+    asm("in ax, dx");
+    asm("mov %0, ax":"=r" (r)::);
+    return r;
+}
 
 enum KEYCODE {
 	NULL_KEY = 0,
@@ -80,28 +89,13 @@ enum KEYCODE {
 
 };
 
-#define KBD_SEND(byt) outportb(0x64, byt);
-
-/* Late init, must end with _kill();*/
-void keyboard_init()
-{
-	/* Set Keycache */
-	keycache = (uint8_t*)malloc(256);
-	memset(keycache, 0, 256);
-	/* Install IRQ */
-	set_int(33, (uint32_t)keyboard_irq);
-	__kbd_enabled = 1;
-	_kill(); /* end me */
-};
-
-uint8_t keyboard_enabled()
-{
-	return __kbd_enabled;
+void keyboard_send_key(uint8_t byt){
+    outportb(0x64, byt);
 }
 
-void keyboard_read_key()
+uint8_t keyboard_read_key()
 {
-	lastkey = 0;
 	if (inportb(0x64) & 1)
-		lastkey = inportb(0x60);
+		return inportb(0x60);
+    return 0;
 }
