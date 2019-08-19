@@ -1,18 +1,18 @@
 #include "keyboard.h"
 
 
-void outportb(uint16_t port, uint16_t value)
+void outportb(uint16_t port, uint8_t value)
 {
     asm("mov dx, %0"::"r" (port):);
-    asm("mov ax, %0"::"r" (value):);
-    asm("out dx, ax");
+    asm("mov al, %0"::"r" (value):);
+    asm("out dx, al");
 }
-uint16_t inportb(uint16_t port)
+uint8_t inportb(uint16_t port)
 {
-    uint16_t r;
+    uint8_t r;
     asm("mov dx, %0"::"r" (port):);
-    asm("in ax, dx");
-    asm("mov %0, ax":"=r" (r)::);
+    asm("in al, dx");
+    asm("mov %0, al":"=r" (r)::);
     return r;
 }
 
@@ -88,14 +88,16 @@ enum KEYCODE {
 	ENTER_RELEASED = 0x9C,
 
 };
-
-void keyboard_send_key(uint8_t byt){
-    outportb(0x64, byt);
+void keyboard_send_key(uint8_t b){
+    outportb(0x64, b);
 }
-
 uint8_t keyboard_read_key()
 {
-	if (inportb(0x64) & 1)
-		return inportb(0x60);
+    uint8_t key_code = 0;
+	if (inportb(0x64) & 1){
+        key_code = inportb(0x60);
+        while(key_code==0){}
+		return key_code;
+	}
     return 0;
 }
