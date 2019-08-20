@@ -58,7 +58,7 @@ uint16_t* terminal_buffer;
 
 void update_cursor(uint16_t x, uint16_t y)
 {
-	asm("mov bx, %0\n"
+	__asm("mov bx, %0\n"
 		"mov ax, %1\n"
 		"mov dl, 80\n"
 		"mul dl\n"
