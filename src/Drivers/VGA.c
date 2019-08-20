@@ -18,6 +18,31 @@ size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
 
+void update_cursor(uint16_t x, uint16_t y)
+{
+	__asm("mov bx, %0\n"
+		"mov ax, %1\n"
+		"mov dl, 80\n"
+		"mul dl\n"
+		"add bx, ax\n"
+		"mov dx, 0x03D4\n"
+		"mov al, 0x0F\n"
+		"out dx, al\n"
+		"inc dl\n"
+		"mov al, bl\n"
+		"out dx, al\n"
+		"dec dl\n"
+		"mov al, 0x0E\n"
+		"out dx, al\n"
+		"inc dl\n"
+		"mov al, bh\n"
+		"out dx, al\n"
+		"ret\n"
+		:
+		: "r" (x), "r" (y)
+		: );
+}
+
 void terminal_initialize(void)
 {
 	terminal_row = 0;
@@ -70,6 +95,7 @@ void terminal_writestr(const char* data)
 	terminal_write(data, strlen(data));
 	update_cursor(terminal_column, terminal_row);
 }
+
 void terminal_writestr_c(const char* data, uint8_t color)
 {
 	terminal_color = color;

@@ -26,6 +26,7 @@
 extern const uint8_t VGA_WIDTH = 80;
 extern const uint8_t VGA_HEIGHT = 25;
 
+void update_cursor(uint16_t x, uint16_t y)
 
 static inline uint8_t vga_entry_color(uint8_t fg, uint8_t bg);
 static inline uint16_t vga_entry(unsigned char uc, uint8_t color);
