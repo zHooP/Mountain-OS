@@ -3,16 +3,16 @@
 
 void outportb(uint16_t port, uint8_t value)
 {
-    asm("mov dx, %0"::"r" (port):);
-    asm("mov al, %0"::"r" (value):);
-    asm("out dx, al");
+	__asm("mov dx, %0"::"r" (port) : );
+	__asm("mov al, %0"::"r" (value) : );
+	__asm("out dx, al");
 }
 uint8_t inportb(uint16_t port)
 {
     uint8_t r;
-    asm("mov dx, %0"::"r" (port):);
-    asm("in al, dx");
-    asm("mov %0, al":"=r" (r)::);
+	__asm("mov dx, %0"::"r" (port) : );
+	__asm("in al, dx");
+	__asm("mov %0, al":"=r" (r)::);
     return r;
 }
 
