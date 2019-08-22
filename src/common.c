@@ -1,5 +1,13 @@
 #include "common.h"
 
+size_t strlen(const char* str)
+{
+	size_t len = 0;
+	while (str[len])
+		len++;
+	return len;
+}
+
 int16_t charInStr(char val, char *arr){
 	int16_t size = sizeof(*arr) / sizeof(char);
     for (int16_t i=0; i < size; i++) {

@@ -10,8 +10,6 @@ static inline uint16_t vga_entry(unsigned char uc, uint8_t color)
 	return (uint16_t)uc | (uint16_t)color << 8;
 }
 
-const uint8_t VGA_WIDTH = 80;
-const uint8_t VGA_HEIGHT = 25;
 
 size_t terminal_row;
 size_t terminal_column;
@@ -20,7 +18,7 @@ uint16_t* terminal_buffer;
 
 void update_cursor(uint16_t x, uint16_t y)
 {
-	__asm("mov bx, %0\n"
+	asm("mov bx, %0\n"
 		"mov ax, %1\n"
 		"mov dl, 80\n"
 		"mul dl\n"
@@ -40,7 +38,7 @@ void update_cursor(uint16_t x, uint16_t y)
 		"ret\n"
 		:
 		: "r" (x), "r" (y)
-		: );
+		:);
 }
 
 void terminal_initialize(void)
