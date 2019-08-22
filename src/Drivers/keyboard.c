@@ -100,4 +100,3 @@ uint8_t keyboard_read_key()
 	}
     return key_code;
 }
-
