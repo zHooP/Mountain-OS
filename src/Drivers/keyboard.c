@@ -31,3 +31,21 @@ uint8_t keyboard_read_key()
     return 0;
 }
 
+char* input(){
+    char* input = NULL;
+    uint8_t key;
+    uint16_t i = 0;
+    while(true){
+        key = 0;
+        while(key==0){
+            key = keyboard_read_key();
+        }
+        if(key == 0x1C){
+            break;
+        }
+        input[i] = ktoc(key);
+        i++;
+    }
+    input[i] = '\0';
+    return input;
+}

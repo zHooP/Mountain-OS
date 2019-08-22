@@ -11,3 +11,5 @@ void swap(char *x, char *y);
 void reverse(char str[], int length);
 
 char* itoa(int num, int base);
+
+char ktoc(uint8_t key);

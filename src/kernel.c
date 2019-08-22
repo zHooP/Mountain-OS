@@ -2,6 +2,7 @@
 #include "Drivers/VGA.h"
 #include "Drivers/keyboard.h"
 
+
 #if defined(__linux__)
 #error "You are not using a cross-compiler, you will most certainly run into trouble"
 #endif
@@ -22,4 +23,5 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
     terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
+    terminal_writestr(input());
 }
