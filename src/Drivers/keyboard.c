@@ -32,7 +32,7 @@ uint8_t keyboard_read_key()
 }
 
 char* input(){
-    char input[] = {};
+    char* input = NULL;
     uint8_t key = 0;
     int i = 0;
     while(key != 0x1C){
