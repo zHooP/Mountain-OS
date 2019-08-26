@@ -32,16 +32,16 @@ uint8_t keyboard_read_key()
 }
 
 char* input(){
-    char* input = NULL;
+    inp = NULL;
     uint8_t key = 0;
     int i = 0;
     while(key != 0x1C){
         while(key == 0){
             key = keyboard_read_key();
         }
-        input[i++] = ktoc(key);
+        inp[i++] = ktoc(key);
         key = 0;
     }
-    input[i++] = '\0';
-    return input;
+    inp[i++] = '\0';
+    return inp;
 }
