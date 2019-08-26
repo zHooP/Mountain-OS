@@ -36,9 +36,12 @@ char* input(){
     uint8_t key = 0;
     int i = 0;
     while(true){
-        while(key == 0){
+        while(true){
             key = keyboard_read_key();
+            if(key != 0)
+                break;
         }
+        terminal_writestr("1");
         if(key == 0x1C)
             break;
         inp[i++] = ktoc(key);

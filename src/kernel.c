@@ -23,5 +23,7 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
     terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
-    terminal_writestr(input());
+    input();
+    terminal_writestr("1");
+
 }
