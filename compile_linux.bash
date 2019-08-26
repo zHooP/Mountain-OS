@@ -9,5 +9,5 @@ i686-elf-gcc -T src/linker.ld -o debug/mountainos.bin -ffreestanding -O2 -nostdl
 echo "Run? (Requires QEMU) (y/N)"
 read run 
 if [[ "${run}" == "y" ]]; then
-    qemu-system-i386 -kernel debug/mountainos.bin
+    qemu-system-i386 -kernel debug/mountainos.bin -machine type=pc-i440fx-3.1
 fi 
