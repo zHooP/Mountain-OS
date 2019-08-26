@@ -23,6 +23,9 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
     terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
+
+    // this is a test
+
     char inp[1024];
     char c;
     uint8_t key = 0;
@@ -37,7 +40,7 @@ void kernel_main(void)
         if(key == 0x1C)
             break;
         c = ktoc(key);
-        inp[i++] = c;
+        inp[i++] = (char)c;
         key = 0;
     }
     inp[i++] = '\0';
