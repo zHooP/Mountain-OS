@@ -1,5 +1,5 @@
 #include "keyboard.h"
-
+#include "../common.h"
 
 void outportb(uint16_t port, uint8_t value)
 {
@@ -31,8 +31,8 @@ uint8_t keyboard_read_key()
     return 0;
 }
 
-char* input(){
-    inp = NULL;
+/*char* input(){
+    char inp[1024] = {};
     uint8_t key = 0;
     int i = 0;
     while(true){
@@ -41,7 +41,6 @@ char* input(){
             if(key != 0)
                 break;
         }
-        terminal_writestr("1");
         if(key == 0x1C)
             break;
         inp[i++] = ktoc(key);
@@ -49,4 +48,4 @@ char* input(){
     }
     inp[i++] = '\0';
     return inp;
-}
+}*/
