@@ -13,3 +13,5 @@ void reverse(char str[], int length);
 char* itoa(int num, int base);
 
 char ktoc(uint8_t key);
+
+bool strequ(char* s1, char* s2);

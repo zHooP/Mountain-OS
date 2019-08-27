@@ -24,26 +24,29 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
     terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
     // request input
-    uint8_t key = 0;
-    int c = 0;
+    uint8_t key;
+    int c;
+    while(true){
+        key = 0;
+        c = 0;
+        while(c < 1023 && key != 0x1C){
+            while(!(key = keyboard_read_key())) {}
+            if(key == 0xE && c > 0){
+                inp[c--] = '\0';
+                terminal_putcharbehind('\0');
+                continue;
+            }
+            if(ktoc(key) == 0){
+                continue;
+            }
+            inp[c++] = ktoc(key);
+            terminal_putchar(ktoc(key));
 
-    while(c < 1023 && key != 0x1C){
-        while(!(key = keyboard_read_key())) {}
-        if(key == 0xE && c > 0){
-            inp[c--] = '\0';
-            terminal_putcharbehind('\0');
-            continue;
         }
-        if(ktoc(key) == 0){
-            continue;
-        }
-        inp[c++] = ktoc(key);
-        terminal_putchar(ktoc(key));
-
+        inp[c] = '\0';
+        terminal_writestr("\n");
+        if(strequ(inp, "mountain") == true)
+            terminal_writestr("agreed");
     }
-    inp[c] = '\0';
-    terminal_writestr("\n");
-    // print input
-    terminal_writestr(inp);
 
 }
