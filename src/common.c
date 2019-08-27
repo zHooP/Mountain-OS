@@ -78,6 +78,8 @@ char* itoa(int num, int base)
     return str;
 }
 bool strequ(char* s1, char* s2){
+    if(strlen(s1) != strlen(s2))
+        return false;
     for(size_t i = 0; i < strlen(s1); i++){
         if(s1[i] != s2[i])
             return false;

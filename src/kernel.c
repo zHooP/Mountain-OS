@@ -29,12 +29,11 @@ void kernel_main(void)
         cmd = input();
         terminal_writestr("\n");
         if(strequ(cmd, "hi")){
-            terminal_writestr("Hi!");
+            terminal_writestr("Hi!\n");
         }
         if(strequ(cmd, "hello")){
-            terminal_writestr("Hi!");
+            terminal_writestr("Hi!\n");
         }
-        terminal_writestr("\n");
     }
 
 }
