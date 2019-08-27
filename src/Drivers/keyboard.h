@@ -82,3 +82,5 @@ uint8_t inportb(uint16_t port);
 void keyboard_send_key(uint8_t b);
 uint8_t keyboard_read_key();
 char* input();
+char input_char();
+uint8_t input_key();

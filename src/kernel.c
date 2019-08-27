@@ -23,9 +23,18 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
     terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
-    // request input
+    char* cmd;
     while(true){
-        terminal_writestr(input());
+        terminal_writestr("mountainOS> ");
+        cmd = input();
+        terminal_writestr("\n");
+        if(strequ(cmd, "hi")){
+            terminal_writestr("Hi!");
+        }
+        if(strequ(cmd, "hello")){
+            terminal_writestr("Hi!");
+        }
+        terminal_writestr("\n");
     }
 
 }

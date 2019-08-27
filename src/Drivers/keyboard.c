@@ -51,11 +51,30 @@ char* input(){
             terminal_putcharbehind('\0');
             continue;
         }
+        if(key == 0)
+        if(key == 0x2A){
+            while(true){
+                while(!(key = keyboard_read_key())) {}
+                if(key == 0xAA)
+                    break;
+                if(key == 0xE && c > 0){
+                    inp[c--] = '\0';
+                    terminal_putcharbehind('\0');
+                    continue;
+                }
+                if(ktocSHIFT(key) == 0){
+                    continue;
+                }
+                inp[c++] = ktocSHIFT(key);
+                terminal_putchar(ktocSHIFT(key));
+            }
+        }
         if(ktoc(key) == 0){
             continue;
         }
         inp[c++] = ktoc(key);
         terminal_putchar(ktoc(key));
+
 
     }
     inp[c] = '\0';
