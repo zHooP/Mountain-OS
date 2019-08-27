@@ -23,27 +23,27 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
     terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
-
-    // this is a test
-
-    char inp[1024];
-    char c;
+    // request input
     uint8_t key = 0;
-    int i = 0;
-    while(true){
-        while(true){
-            key = keyboard_read_key();
-            terminal_writestr(itoa(key,10));
-            if(key != 0)
-                break;
+    int c = 0;
+
+    while(c < 1023 && key != 0x1C){
+        while(!(key = keyboard_read_key())) {}
+        if(key == 0xE && c > 0){
+            inp[c--] = '\0';
+            terminal_putcharbehind('\0');
+            continue;
         }
-        if(key == 0x1C)
-            break;
-        c = ktoc(key);
-        inp[i++] = (char)c;
-        key = 0;
+        if(ktoc(key) == 0){
+            continue;
+        }
+        inp[c++] = ktoc(key);
+        terminal_putchar(ktoc(key));
+
     }
-    inp[i++] = '\0';
+    inp[c] = '\0';
+    terminal_writestr("\n");
+    // print input
     terminal_writestr(inp);
 
 }

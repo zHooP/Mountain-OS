@@ -31,21 +31,22 @@ uint8_t keyboard_read_key()
     return 0;
 }
 
+// working on it (preview in kernel)
+
 /*char* input(){
-    char inp[1024] = {};
     uint8_t key = 0;
-    int i = 0;
-    while(true){
-        while(true){
-            key = keyboard_read_key();
-            if(key != 0)
-                break;
+    int c = 0;
+    while(c < 1023 && key != 0x1C){
+        while(!(key = keyboard_read_key())) {}
+        if(ktoc(key) == 0){
+            outportb(0x3F8, '/');
+            continue;
         }
-        if(key == 0x1C)
-            break;
-        inp[i++] = ktoc(key);
-        key = 0;
+        outportb(0x3F8, ktoc(key));
+        inp[c++] = ktoc(key);
+        terminal_writestr(&inp[c-1]);
+
     }
-    inp[i++] = '\0';
+    inp[c] = '\0';
     return inp;
 }*/
