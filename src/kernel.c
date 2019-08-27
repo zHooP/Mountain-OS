@@ -2,11 +2,6 @@
 #include "Drivers/VGA.h"
 #include "Drivers/keyboard.h"
 
-
-#if defined(__linux__)
-#error "You are not using a cross-compiler, you will most certainly run into trouble"
-#endif
-
 #if !defined(__i386__)
 #error "This needs to be compiled with i686"
 #endif
@@ -33,6 +28,9 @@ void kernel_main(void)
         }
         if(strequ(cmd, "hello")){
             terminal_writestr("Hi!\n");
+        }
+        if(strcontains(cmd, "ay")){
+            terminal_writestr("Ay!\n");
         }
     }
 

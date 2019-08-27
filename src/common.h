@@ -17,3 +17,5 @@ char ktoc(uint8_t key);
 char ktocSHIFT(uint8_t key);
 
 bool strequ(char* s1, char* s2);
+
+bool strcontains(char* s, char* key);

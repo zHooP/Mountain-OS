@@ -1,5 +1,4 @@
 #include "common.h"
-
 size_t strlen(const char* str)
 {
 	size_t len = 0;
@@ -86,6 +85,28 @@ bool strequ(char* s1, char* s2){
     }
     return true;
 }
+bool strcontains(char* s, char* key){
+    if(strlen(key) > strlen(s))
+        return false;
+
+    for (int i = 0; i < strlen(s); i++){
+        int j = 0;
+        // If the first characters match
+        if(s[i] == key[j]){
+            int k = i;
+            while (s[i] == key[j] && j < strlen(key)){
+                j++;
+                i++;
+            }
+            if (j == strlen(key))
+                return true;
+            else // Re-initialize i to its original value
+                i = k;
+        }
+    }
+    return false;
+}
+
 
 char ktoc(uint8_t key){
     char c = 0;

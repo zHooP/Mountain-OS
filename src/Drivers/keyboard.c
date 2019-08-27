@@ -51,7 +51,6 @@ char* input(){
             terminal_putcharbehind('\0');
             continue;
         }
-        if(key == 0)
         if(key == 0x2A){
             while(true){
                 while(!(key = keyboard_read_key())) {}
