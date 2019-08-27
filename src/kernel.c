@@ -46,7 +46,7 @@ void kernel_main(void)
         inp[c] = '\0';
         terminal_writestr("\n");
         if(strequ(inp, "mountain") == true)
-            terminal_writestr("agreed");
+            terminal_writestr("agreed\n");
     }
 
 }
