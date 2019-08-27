@@ -1,5 +1,6 @@
 #include "keyboard.h"
 #include "../common.h"
+#include "VGA.h"
 
 void outportb(uint16_t port, uint8_t value)
 {
@@ -9,10 +10,9 @@ void outportb(uint16_t port, uint8_t value)
 }
 uint8_t inportb(uint16_t port)
 {
-    uint8_t r;
 	asm("mov dx, %0"::"r" (port) : );
 	asm("in al, dx");
-	asm("mov %0, al":"=r" (r)::);
+	register uint8_t r asm("al");
     return r;
 }
 
@@ -30,23 +30,34 @@ uint8_t keyboard_read_key()
 	}
     return 0;
 }
+uint8_t input_key(){
+    uint8_t key;
+    while(!(key = keyboard_read_key())) {}
+    return key;
+}
+char input_char(){
+    uint8_t key;
+    while(!(key = keyboard_read_key())) {}
+    return ktoc(key);
+}
 
-// working on it (preview in kernel)
-
-/*char* input(){
+char* input(){
     uint8_t key = 0;
     int c = 0;
-    while(c < 1023 && key != 0x1C){
+    while(key != 0x1C){
         while(!(key = keyboard_read_key())) {}
-        if(ktoc(key) == 0){
-            outportb(0x3F8, '/');
+        if(key == 0xE && c > 0){
+            inp[c--] = '\0';
+            terminal_putcharbehind('\0');
             continue;
         }
-        outportb(0x3F8, ktoc(key));
+        if(ktoc(key) == 0){
+            continue;
+        }
         inp[c++] = ktoc(key);
-        terminal_writestr(&inp[c-1]);
+        terminal_putchar(ktoc(key));
 
     }
     inp[c] = '\0';
     return inp;
-}*/
+}
