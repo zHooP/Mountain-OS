@@ -106,6 +106,16 @@ bool strcontains(char* s, char* key){
     }
     return false;
 }
+void strcpy(char *src, char *dest) {
+    int size = strlen(src);
+    if (size > 0) {
+        int i;
+        for (i = 0; i < size - 1 && src[i]; i++) {
+             dest[i] = src[i];
+        }
+        dest[i+1] = '\0';
+    }
+}
 
 
 char ktoc(uint8_t key){
