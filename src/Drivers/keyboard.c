@@ -2,19 +2,6 @@
 #include "../common.h"
 #include "VGA.h"
 
-void outportb(uint16_t port, uint8_t value)
-{
-	asm("mov dx, %0"::"r" (port) : );
-	asm("mov al, %0"::"r" (value) : );
-	asm("out dx, al");
-}
-uint8_t inportb(uint16_t port)
-{
-	asm("mov dx, %0"::"r" (port) : );
-	asm("in al, dx");
-	register uint8_t r asm("al");
-    return r;
-}
 
 void keyboard_send_key(uint8_t b){
     outportb(0x64, b);

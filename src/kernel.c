@@ -1,6 +1,5 @@
 #include "common.h"
-#include "Drivers/VGA.h"
-#include "Drivers/keyboard.h"
+#include "all_drivers.h"
 
 #if !defined(__i386__)
 #error "This needs to be compiled with i686"
@@ -29,8 +28,10 @@ void kernel_main(void)
         if(strequ(cmd, "hello")){
             terminal_writestr("Hi!\n");
         }
-        if(strcontains(cmd, "ay")){
-            terminal_writestr("Ay!\n");
+        if(strcontains(cmd, "wait test")){
+            terminal_writestr("testing!\n");
+
+            terminal_writestr("done!\n");
         }
     }
 

@@ -1,4 +1,40 @@
 #include "common.h"
+
+
+void outportb(uint16_t port, uint8_t value)
+{
+	asm("mov dx, %0"::"r" (port) : );
+	asm("mov al, %0"::"r" (value) : );
+	asm("outb dx, al");
+}
+uint8_t inportb(uint16_t port)
+{
+	asm("mov dx, %0"::"r" (port) : );
+	asm("inb al, dx");
+	register uint8_t r asm("al");
+    return r;
+}
+void *memcpy(void *dest, const void *src, size_t count)
+{
+    const char *sp = (const char *)src;
+    char *dp = (char *)dest;
+    for(; count != 0; count--) *dp++ = *sp++;
+    return dest;
+}
+
+void *memset(void *dest, char val, size_t count)
+{
+    char *temp = (char *)dest;
+    for( ; count != 0; count--) *temp++ = val;
+    return dest;
+}
+
+unsigned short *memsetw(unsigned short *dest, unsigned short val, size_t count)
+{
+    unsigned short *temp = (unsigned short *)dest;
+    for( ; count != 0; count--) *temp++ = val;
+    return dest;
+}
 size_t strlen(const char* str)
 {
 	size_t len = 0;
