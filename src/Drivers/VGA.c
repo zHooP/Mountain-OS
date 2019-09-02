@@ -1,4 +1,4 @@
-#include "VGA.h"
+#include "../all_drivers.h"
 
 inline uint8_t vga_entry_color(uint8_t fg, uint8_t bg)
 {

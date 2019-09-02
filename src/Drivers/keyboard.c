@@ -1,7 +1,5 @@
-#include "keyboard.h"
+#include "../all_drivers.h"
 #include "../common.h"
-#include "VGA.h"
-
 
 void keyboard_send_key(uint8_t b){
     outportb(0x64, b);

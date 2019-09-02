@@ -8,6 +8,14 @@
 
 void kernel_main(void)
 {
+    gdt_install();
+    idt_install();
+    isrs_install();
+    irq_install();
+    __asm__ __volatile__ ("sti");
+    terminal_initialize();
+    timer_install();
+
 	terminal_initialize();
 	terminal_writestr_c("                ooooo      ssss\n", 0xC);
     terminal_writestr_c("              oo     oo   ss   \n", 0x7);
@@ -17,6 +25,7 @@ void kernel_main(void)
     terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7);
     terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF);
     terminal_writestr("Welcome! Wilkommen! Bun venit! Dobro dosli!\n");
+    sleep(1000);
     char* cmd;
     while(true){
         terminal_writestr("mountainOS> ");
@@ -28,10 +37,8 @@ void kernel_main(void)
         if(strequ(cmd, "hello")){
             terminal_writestr("Hi!\n");
         }
-        if(strcontains(cmd, "wait test")){
-            terminal_writestr("testing!\n");
-
-            terminal_writestr("done!\n");
+        if(strequ(cmd, "crash")){
+            itoa(32 / 0, 10);
         }
     }
 

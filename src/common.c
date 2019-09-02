@@ -1,5 +1,5 @@
 #include "common.h"
-
+#include "all_drivers.h"
 
 void outportb(uint16_t port, uint8_t value)
 {
@@ -180,4 +180,8 @@ char ktocSHIFT(uint8_t key){
         }
     }
     return c;
+}
+
+void sleep(int ms){
+    timer_wait((int)(18.2065 / 1000 * ms));
 }

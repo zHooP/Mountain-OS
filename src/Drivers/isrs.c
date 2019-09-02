@@ -1,43 +1,6 @@
-#include "isrs.h"
-#include "idt.h"
-char *exception_messages[] =
-{
-    "Division By Zero",
-    "Debug",
-    "Non Maskable Interrupt",
-    "Breakpoint",
-    "Into Detected Overflow",
-    "Out of Bounds",
-    "Invalid Opcode",
-    "No Coprocessor",
+#include "../common.h"
+#include "../all_drivers.h"
 
-    "Double Fault",
-    "Coprocessor Segment Overrun",
-    "Bad TSS",
-    "Segment Not Present",
-    "Stack Fault",
-    "General Protection Fault",
-    "Page Fault",
-    "Unknown Interrupt",
-
-    "Coprocessor Fault",
-    "Alignment Check",
-    "Machine Check",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved"
-};
 extern void _isr0();
 extern void _isr1();
 extern void _isr2();
@@ -111,13 +74,53 @@ void isrs_install()
     idt_set_gate(31, (unsigned)_isr31, 0x08, 0x8E);
 }
 
+char *exception_messages[] =
+{
+    "Division By Zero",
+    "Debug",
+    "Non Maskable Interrupt",
+    "Breakpoint",
+    "Into Detected Overflow",
+    "Out of Bounds",
+    "Invalid Opcode",
+    "No Coprocessor",
+
+    "Double Fault",
+    "Coprocessor Segment Overrun",
+    "Bad TSS",
+    "Segment Not Present",
+    "Stack Fault",
+    "General Protection Fault",
+    "Page Fault",
+    "Unknown Interrupt",
+
+    "Coprocessor Fault",
+    "Alignment Check",
+    "Machine Check",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved",
+    "Reserved"
+};
+
 
 void fault_handler(struct regs *r)
 {
     if (r->int_no < 32)
     {
-        terminal_writestr(exception_messages[r->int_no]);
-        terminal_writestr("Exception. System Halted!\n");
+        terminal_writestr_c("MountainOS has received an exception from the processor and halted the system.\n", 0x4F);
+        terminal_writestr_c("ACPI is not implemented at the moment, so a manual reset is required to reboot.\n\n", 0x4F);
+        terminal_writestr_c(exception_messages[r->int_no], 0x4F);
         for (;;);
     }
 }
