@@ -3,7 +3,7 @@ Some OS made in C
 
 # Stuff planned (Help needed)
 - move to VGA pixel by pixel drawing (with text fonts and print abilities)
-- basic audio (set old PIT timer 2 frequency back)
+- basic audio (after trying to stop the sound just gets bugged)
 
 # Stuff planned (No help needed, just time)
 - nothing yet
