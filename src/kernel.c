@@ -16,9 +16,9 @@ void kernel_main(void)
     irq_install();
     __asm__ __volatile__ ("sti");
 	terminal_initialize();
-    isrs_install();
+    //isrs_install();
     timer_install(1000);
-    mouse_installer();
+    //mouse_installer();
     timer_wait(1000);
 	terminal_writestr_c("                ooooo      ssss\n", 0xC); timer_wait(128);
     terminal_writestr_c("              oo     oo   ss   \n", 0x7); timer_wait(128);
@@ -56,9 +56,9 @@ void kernel_main(void)
         if(strequ(cmd, "crash")){
             itoa(32 / 0, 10);
         } else
-        if(strequ(cmd, "bin")){
+        if(strequ(cmd, "shellcodetest")){
             
-            void (*ret)() = (int(*)())"\xC7\x05\x00\x80\x0B\x00\x48\x07\x69\x07";
+            void (*ret)() = (int(*)())"\xC7\x05\x00\x80\x0B\x00\x48\x07\x69\x07\xC3";
 	        ret();
         } else
         if(strequ(cmd, "timer")){

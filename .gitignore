@@ -1,3 +1,5 @@
 .vs/*
 *.o
 debug/
+mountainos.iso
+isodir/
