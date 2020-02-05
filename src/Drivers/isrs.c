@@ -116,11 +116,5 @@ char *exception_messages[] =
 
 void fault_handler(struct regs *r)
 {
-    if (r->int_no < 32)
-    {
-        terminal_writestr_c("MountainOS has received an exception from the processor and halted the system.\n", 0x4F);
-        terminal_writestr_c("ACPI is not implemented at the moment, so a manual reset is required to reboot.\n\n", 0x4F);
-        terminal_writestr_c(exception_messages[r->int_no], 0x4F);
-        for (;;);
-    }
+    print(exception_messages[r->int_no]);
 }

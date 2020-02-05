@@ -1,5 +1,15 @@
 #include "common.h"
 #include "all_drivers.h"
+#include <stdarg.h>
+
+
+int getBit(int8_t byteFlag, int whichBit)
+{
+    if (whichBit > 0 && whichBit <= 8)
+        return (byteFlag & (1<<(whichBit-1)));
+    else
+        return 0;
+}
 
 void outportb(uint16_t port, uint8_t value)
 {
@@ -12,6 +22,32 @@ uint8_t inportb(uint16_t port)
 	asm("mov dx, %0"::"r" (port) : );
 	asm("inb al, dx");
 	register uint8_t r asm("al");
+    return r;
+}
+void outportw(uint16_t port, uint16_t value)
+{
+	asm("mov dx, %0"::"r" (port) : );
+	asm("mov ax, %0"::"r" (value) : );
+	asm("outw dx, ax");
+}
+uint16_t inportw(uint16_t port)
+{
+	asm("mov dx, %0"::"r" (port) : );
+	asm("inw ax, dx");
+	register uint16_t r asm("ax");
+    return r;
+}
+void outportdw(uint16_t port, uint32_t value)
+{
+	asm("mov dx, %0"::"r" (port) : );
+	asm("mov eax, %0"::"r" (value) : );
+	asm("out dx, eax");
+}
+uint32_t inportdw(uint16_t port)
+{
+	asm("mov dx, %0"::"r" (port) : );
+	asm("in eax, dx");
+	register uint32_t r asm("eax");
     return r;
 }
 void *memcpy(void *dest, const void *src, size_t count)
@@ -73,17 +109,18 @@ void reverse(char str[], int length)
 // Implementation of itoa()
 char* itoa(int num, int base)
 {
-    char* str = NULL;
+
+    char* str = "";
+    if (num == 0)
+    {
+        str[1] = '\0';
+        str[0] = '0';
+        return str;
+    }
     int i = 0;
     bool isNegative = false;
 
-    /* Handle 0 explicitely, otherwise empty string is printed for 0 */
-    if (num == 0)
-    {
-        str[i++] = '\0';
-        str[i] = '0';
-        return str;
-    }
+
 
     // In standard itoa(), negative numbers are handled only with
     // base 10. Otherwise numbers are considered unsigned.
@@ -112,6 +149,36 @@ char* itoa(int num, int base)
 
     return str;
 }
+
+int atoi(const char* str, int b) 
+{ 
+    int sign = 1, base = 0, i = 0; 
+    if(strequ(str, "0")){
+        return 0;
+    }
+    // if whitespaces then ignore. 
+    while (str[i] == ' ') { 
+        i++; 
+    } 
+    // sign of number 
+    if (str[i] == '-' || str[i] == '+') { 
+        sign = 1 - 2 * (str[i++] == '-'); 
+    } 
+    // checking for valid input 
+    while (str[i] >= '0' && str[i] <= '9') { 
+        // handling overflow test case 
+        if (base > 2147483646 / 10 || (base == 2147483646 / 10 && str[i] - '0' > 7)) { 
+            if (sign == 1) 
+                return 2147483646; 
+            else
+                return 0; 
+        } 
+        base = b * base + (str[i++] - '0'); 
+    } 
+    return base * sign; 
+} 
+
+
 bool strequ(char* s1, char* s2){
     if(strlen(s1) != strlen(s2))
         return false;
@@ -181,7 +248,23 @@ char ktocSHIFT(uint8_t key){
     }
     return c;
 }
+char* strcat(char* dest, const char *src)
+{
+    size_t i,j;
+    char* d = dest;
+    for (i = 0; d[i] != '\0'; i++)
+        ;
+    for (j = 0; src[j] != '\0'; j++)
+        d[i+j] = src[j];
+    d[i+j] = '\0';
+    return d;
+}
+
 
 void sleep(int ms){
-    timer_wait((int)(18.2065 / 1000 * ms));
+    timer_wait(ms);
 }
+void print(char* s){
+    terminal_writestr(s);
+}
+

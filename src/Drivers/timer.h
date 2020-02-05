@@ -1,6 +1,6 @@
 #pragma once
 
-extern int timer_ticks;
+extern unsigned long timer_ticks;
 
-extern void timer_wait(int ticks);
-extern void timer_install();
+extern void timer_wait(int ms);
+extern void timer_install(uint32_t frequency);

@@ -18,6 +18,7 @@ align 4
 	dd FLAGS
 	dd CHECKSUM
 
+
 stublet:
     extern kernel_main
     call kernel_main
