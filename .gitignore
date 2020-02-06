@@ -3,3 +3,8 @@
 debug/
 mountainos.iso
 isodir/
+isodir/boot/kernel.elf
+serial.log
+isodir/boot/kernel.elf
+isodir/boot/kernel.elf
+*.elf

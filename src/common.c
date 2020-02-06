@@ -2,7 +2,6 @@
 #include "all_drivers.h"
 #include <stdarg.h>
 
-
 int getBit(int8_t byteFlag, int whichBit)
 {
     if (whichBit > 0 && whichBit <= 8)
@@ -110,15 +109,15 @@ void reverse(char str[], int length)
 char* itoa(int num, int base)
 {
 
-    char* str = "";
-    if (num == 0)
-    {
-        str[1] = '\0';
-        str[0] = '0';
-        return str;
-    }
+    char* str = NULL;
     int i = 0;
     bool isNegative = false;
+    if (num == 0)
+    {
+        str[i++] = '\0';
+        str[i] = '0';
+        return str;
+    }
 
 
 
