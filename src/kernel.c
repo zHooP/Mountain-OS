@@ -20,6 +20,7 @@ void kernel_main(void)
     isrs_install();
     timer_install(1000);
     //mouse_install();
+    initAcpi();
     
 	terminal_writestr_c("                ooooo      ssss\n", 0xC); timer_wait(128);
     terminal_writestr_c("              oo     oo   ss   \n", 0x7); timer_wait(128);
@@ -53,7 +54,18 @@ void kernel_main(void)
                 terminal_writestr("\n");
             }
         }else
-        
+        if(strequ(cmd, "reboot")){
+            uint8_t good = 0x02;
+            while (good & 0x02)
+                good = inportb(0x64);
+            outportb(0x64, 0xFE);
+            asm("hlt");
+            
+        } else
+        if(strequ(cmd, "shutdown")){
+            acpiPowerOff();
+            
+        } else
         if(strequ(cmd, "crash")){
             itoa(32 / 0, 10);
         } else

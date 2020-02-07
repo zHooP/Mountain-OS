@@ -10,7 +10,8 @@ $HOME/opt/cross/bin/i686-elf-gcc -c src/Drivers/gdt.c -o debug/gdt.o -std=gnu99 
 $HOME/opt/cross/bin/i686-elf-gcc -c src/Drivers/timer.c -o debug/timer.o -std=gnu99 -m32 -ffreestanding -masm=intel -O2 -Wall -Wextra
 $HOME/opt/cross/bin/i686-elf-gcc -c src/Drivers/idt.c -o debug/idt.o -std=gnu99 -m32 -ffreestanding -masm=intel -O2 -Wall -Wextra
 $HOME/opt/cross/bin/i686-elf-gcc -c src/Drivers/sound.c -o debug/sound.o -std=gnu99 -m32 -ffreestanding -masm=intel -O2 -Wall -Wextra
-$HOME/opt/cross/bin/i686-elf-ld -T src/linker.ld -o debug/kernel.elf debug/boot.o debug/kernel.o debug/irq.o debug/idt.o debug/timer.o debug/gdt.o debug/isrs.o debug/common.o debug/keyboard.o debug/VGA.o debug/sound.o
+$HOME/opt/cross/bin/i686-elf-gcc -c src/Drivers/acpi.c -o debug/acpi.o -std=gnu99 -m32 -ffreestanding -masm=intel -O2 -Wall -Wextra
+$HOME/opt/cross/bin/i686-elf-ld -T src/linker.ld -o debug/kernel.elf debug/boot.o debug/kernel.o debug/irq.o debug/idt.o debug/timer.o debug/gdt.o debug/isrs.o debug/common.o debug/keyboard.o debug/VGA.o debug/sound.o debug/acpi.o
 sh makegrub.sh
 
 qemu-system-i386 -cdrom mountainos.iso -soundhw pcspk -serial file:serial.log &

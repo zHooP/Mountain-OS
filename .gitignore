@@ -8,3 +8,4 @@ serial.log
 isodir/boot/kernel.elf
 isodir/boot/kernel.elf
 *.elf
+.vscode/settings.json
