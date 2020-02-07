@@ -114,8 +114,7 @@ char* itoa(int num, int base)
     bool isNegative = false;
     if (num == 0)
     {
-        str[i++] = '\0';
-        str[i] = '0';
+        str = "0";
         return str;
     }
 
@@ -266,4 +265,9 @@ void sleep(int ms){
 void print(char* s){
     terminal_writestr(s);
 }
-
+void qemudebug(char* s){
+    for (size_t i = 0; i < strlen(s); i++){
+        outportb(0x3F8, s[i]);
+        itoa(2,10);
+    }
+}
