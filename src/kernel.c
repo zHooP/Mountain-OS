@@ -18,7 +18,7 @@ void kernel_main(void)
 	
     isrs_install();
     timer_install(1000);
-    mouse_install();
+    //mouse_install();
     initAcpi();
     
 	terminal_writestr_c("                ooooo      ssss\n", 0xC); timer_wait(128);
