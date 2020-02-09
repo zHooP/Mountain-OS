@@ -3,11 +3,6 @@
 #include "all_drivers.h"
 unsigned int terminal_start;
 
-
-
-
-
-
 void kernel_main(void)
 {
     terminal_initialize();
@@ -21,36 +16,36 @@ void kernel_main(void)
     //mouse_install();
     initAcpi();
     
-	terminal_writestr_c("                ooooo      ssss\n", 0xC); timer_wait(128);
-    terminal_writestr_c("              oo     oo   ss   \n", 0x7); timer_wait(128);
-    terminal_writestr_c("mm  mm  mm    oo     oo    sss \n", 0x9); timer_wait(128);
-    terminal_writestr_c("mmmm  mm  mm  oo     oo      ss\n", 0xD); timer_wait(128);
-    terminal_writestr_c("mm    mm  mm  oo     oo     ss \n", 0xC); timer_wait(128);
-    terminal_writestr_c("mm    mm  mm  oo     oo  ssss  \n", 0x7); timer_wait(128);
-    terminal_writestr_c("mm    mm  mm    ooooo          \n\n", 0xF); timer_wait(128);
+	print_c("                ooooo      ssss\n", 0xC); timer_wait(128);
+    print_c("              oo     oo   ss   \n", 0x7); timer_wait(128);
+    print_c("mm  mm  mm    oo     oo    sss \n", 0x9); timer_wait(128);
+    print_c("mmmm  mm  mm  oo     oo      ss\n", 0xD); timer_wait(128);
+    print_c("mm    mm  mm  oo     oo     ss \n", 0xC); timer_wait(128);
+    print_c("mm    mm  mm  oo     oo  ssss  \n", 0x7); timer_wait(128);
+    print_c("mm    mm  mm    ooooo          \n\n", 0xF); timer_wait(128);
     bootbeep();
     char* cmd;
     int sec = 1;
-    terminal_writestr("Welcome!");
-    terminal_writestr("Wilkommen! ");
-    terminal_writestr("Bun venit! ");
-    terminal_writestr("Dobro dosli!\n");
+    print("Welcome!");
+    print("Wilkommen! ");
+    print("Bun venit! ");
+    print("Dobro dosli!\n");
     
     timer_wait(500);
     while(true){
-        terminal_writestr("mountainOS> ");
+        print("mountainOS> ");
         char* cmd = input();
-        terminal_writestr("\n");
+        print("\n");
         if(strequ(cmd, "hi")){
-            terminal_writestr("Hi!\n");
+            print("Hi!\n");
         } else
         if(strequ(cmd, "hello")){
-            terminal_writestr("Hi!\n");
+            print("Hi!\n");
         } else
         if(strequ(cmd, "findkey")){
             while(true){
-                terminal_writestr(itoa(input_key(), 10));
-                terminal_writestr("\n");
+                print(itoa(input_key(), 10));
+                print("\n");
             }
         }else
         if(strequ(cmd, "reboot")){
@@ -74,9 +69,9 @@ void kernel_main(void)
 	        ret();
         } else
         if(strequ(cmd, "texteater")){
-            terminal_writestr("you are now going to play texteater.\n");
-            terminal_writestr("eat as much text as you can from the screen to get points.\n");
-            terminal_writestr("move with arrow keys and press esc to exit.\n");
+            print("you are now going to play texteater.\n");
+            print("eat as much text as you can from the screen to get points.\n");
+            print("move with arrow keys and press esc to exit.\n");
             sleep(1000);
             int x=0;
             int y=0;
@@ -85,8 +80,6 @@ void kernel_main(void)
 
                 
                 uint8_t key = input_key();
-                //terminal_writestr_at(itoa(x,10),2,10);
-                //terminal_writestr_at(itoa(y,10),2,11);
                 if(key==1){
                     terminal_initialize();
                     break;
@@ -137,14 +130,14 @@ void kernel_main(void)
         }else
         if(strequ(cmd, "timer")){
             while(true){
-                terminal_writestr("\n");
-				terminal_writestr(itoa(sec, 10));
+                print("\n");
+				print(itoa(sec, 10));
                 timer_wait(1000);
                 sec++;
             }
         } else 
         {
-            terminal_writestr_c("\ncmd: command not found\n", 0x4F);
+            print_c("\ncmd: command not found\n", 0x4F);
         }
     }
 

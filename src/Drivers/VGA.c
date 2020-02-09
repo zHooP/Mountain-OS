@@ -134,37 +134,29 @@ void terminal_putcharbehind(char c)
 	update_cursor(terminal_column, terminal_row);
 }
 
-void terminal_write(const char* data, size_t size)
+void print(const char* data)
 {
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 0; i < strlen(data); i++)
         terminal_putchar(data[i]);
-}
-
-
-
-void terminal_writestr(const char* data)
-{
-	terminal_write(data, strlen(data));
 	update_cursor(terminal_column, terminal_row);
 }
 
-void terminal_writestr_at(const char* data, int tx, int ty)
+void print_at(const char* data, int tx, int ty)
 {
 	int oldr = terminal_row;
 	int oldc = terminal_column;
 	terminal_row = ty;
 	terminal_column = tx;
-	for (size_t i = 0; i < strlen(data); i++)
-        terminal_putchar(data[i]);
+	print(data);
 	terminal_row = oldr;
 	terminal_column = oldc;
 	update_cursor(terminal_column, terminal_row);
 }
 
-void terminal_writestr_c(const char* data, uint8_t color)
+void print_c(const char* data, uint8_t color)
 {
 	terminal_color = color;
-	terminal_write(data, strlen(data));
+	print(data);
 	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
 	update_cursor(terminal_column, terminal_row);
 }
