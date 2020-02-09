@@ -1,11 +1,16 @@
+# Visual studio code
 .vs/*
-*.o
-debug/
-mountainos.iso
-isodir/
-isodir/boot/kernel.elf
-serial.log
-isodir/boot/kernel.elf
-isodir/boot/kernel.elf
-*.elf
 .vscode/settings.json
+
+# Object files
+*.o
+debug/*
+
+# Mountain OS iso
+mountainos.iso
+isodir/*
+
+# Miscellaneous
+serial.log
+*.elf
+zcomp.sh
