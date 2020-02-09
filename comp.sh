@@ -17,3 +17,4 @@ i686-elf-ld -T src/linker.ld -o debug/kernel.elf debug/boot.o debug/kernel.o deb
 
 sh makegrub.sh
 qemu-system-i386 -cdrom mountainos.iso -soundhw pcspk -serial file:serial.log
+
