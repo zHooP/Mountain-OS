@@ -39,5 +39,5 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y);
 void terminal_putchar(char c);
 void terminal_putcharbehind(char c);
 void terminal_write(const char* data, size_t size);
-void terminal_writestr(const char* data);
-void terminal_writestr_c(const char* data, uint8_t color);
+void print(const char* data);
+void print_c(const char* data, uint8_t color);

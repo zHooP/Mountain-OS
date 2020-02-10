@@ -35,4 +35,3 @@ bool strequ(char* s1, char* s2);
 bool strcontains(char* s, char* key);
 void strcpy(char *dest, char *src);
 void sleep(int seconds);
-void print(char* s);

@@ -55,7 +55,7 @@ void mouse_handler(struct regs *r)
     }
     
     
-    update_cursor(mouse_x, mouse_y);
+    //update_cursor(mouse_x, mouse_y);
     
 }
 

@@ -1,9 +1,22 @@
-
+#include "Drivers/multiboot.h"
 #include "common.h"
 #include "all_drivers.h"
 unsigned int terminal_start;
 
-void kernel_main(void)
+//
+
+ 
+
+
+
+
+
+
+
+
+//
+
+void kernel_main(multiboot_info_t* mbd, unsigned int magic)
 {
     terminal_initialize();
     gdt_install();
@@ -13,14 +26,14 @@ void kernel_main(void)
 	
     isrs_install();
     timer_install(1000);
-    //mouse_install();
+    mouse_install(); // only used to stop OS from hanging at mouse input
     initAcpi();
     
 	print_c("                ooooo      ssss\n", 0xC); timer_wait(128);
     print_c("              oo     oo   ss   \n", 0x7); timer_wait(128);
     print_c("mm  mm  mm    oo     oo    sss \n", 0x9); timer_wait(128);
     print_c("mmmm  mm  mm  oo     oo      ss\n", 0xD); timer_wait(128);
-    print_c("mm    mm  mm  oo     oo     ss \n", 0xC); timer_wait(128);
+    print_c("mm    mm  mm  oo     oo      ss \n", 0xC); timer_wait(128);
     print_c("mm    mm  mm  oo     oo  ssss  \n", 0x7); timer_wait(128);
     print_c("mm    mm  mm    ooooo          \n\n", 0xF); timer_wait(128);
     bootbeep();
@@ -34,6 +47,7 @@ void kernel_main(void)
     timer_wait(500);
     while(true){
         print("mountainOS> ");
+
         char* cmd = input();
         print("\n");
         if(strequ(cmd, "hi")){
@@ -80,6 +94,8 @@ void kernel_main(void)
 
                 
                 uint8_t key = input_key();
+                //print_at(itoa(x,10),2,10);
+                //print_at(itoa(y,10),2,11);
                 if(key==1){
                     terminal_initialize();
                     break;
@@ -128,10 +144,44 @@ void kernel_main(void)
             terminal_putchar(10);
             terminal_putchar(10);
         }else
+        if(strequ(cmd, "sysinfo")){
+            //
+
+
+            //
+            print("\nSeconds since boot: ");
+            print(itoa(get_timer_ticks()/1000,10));
+            print("\nACPI Shutdown available: ");
+            if(shutdownSupported()){
+                print("yes");
+            } else {
+                print("no");
+            }
+            print("\nTotal memory: ");
+            print(itoa(mbd->mmap_addr,10));
+            print(" KiB\n");
+            print("Time and date: ");
+            rtc_print_formatted_time();
+            print("\n\n");
+            
+        }else
+        if(strequ(cmd, "rtc")||strequ(cmd, "time")||strequ(cmd, "date")){
+            
+            rtc_print_formatted_time();
+            print("\n\n");
+
+
+        }else
         if(strequ(cmd, "timer")){
             while(true){
-                print("\n");
+                uint8_t key = keyboard_read_key();
+                if(key==1){
+                    sec=0;
+                    break;
+                }
+                
 				print(itoa(sec, 10));
+                print("\n");
                 timer_wait(1000);
                 sec++;
             }

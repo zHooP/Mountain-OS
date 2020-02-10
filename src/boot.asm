@@ -21,6 +21,8 @@ align 4
 
 stublet:
     extern kernel_main
+    push eax
+    push ebx
     call kernel_main
     jmp $
 

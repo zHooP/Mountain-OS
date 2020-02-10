@@ -245,3 +245,10 @@ void acpiPowerOff(void)
       outportw((unsigned int) PM1b_CNT, SLP_TYPb | SLP_EN );
 
 }
+
+int shutdownSupported(){
+   if(SCI_EN==0){
+      return 0;
+   }
+   return 1;
+}

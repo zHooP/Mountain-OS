@@ -5,6 +5,7 @@ extern terminal_start;
 void timer_handler(struct regs *r)
 {
     timer_ticks++;
+    read_rtc();
 }
 
 
@@ -17,6 +18,9 @@ void timer_wait(int ms)
     }
 }
 
+unsigned long get_timer_ticks(){
+    return timer_ticks;
+}
 
 
 void timer_install(uint32_t frequency)
