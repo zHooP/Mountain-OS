@@ -16,14 +16,20 @@ unsigned char get_RTC_register(int reg) {
       outportb(cmos_address, reg);
       return inportb(cmos_data);
 }
+
+void write_RTC_register(int reg, int data) {
+      outportb(cmos_address, reg);
+      outportb(cmos_data, data);
+}
  
 void read_rtc() {
-      unsigned char century;
+      
       unsigned char last_second;
       unsigned char last_minute;
       unsigned char last_hour;
       unsigned char last_day;
       unsigned char last_month;
+      unsigned char last_weekday;
       unsigned char last_year;
       unsigned char last_century;
       unsigned char registerB;
@@ -35,6 +41,7 @@ void read_rtc() {
       second = get_RTC_register(0x00);
       minute = get_RTC_register(0x02);
       hour = get_RTC_register(0x04);
+      weekday = get_RTC_register(0x06);
       day = get_RTC_register(0x07);
       month = get_RTC_register(0x08);
       year = get_RTC_register(0x09);
@@ -48,6 +55,7 @@ void read_rtc() {
             last_hour = hour;
             last_day = day;
             last_month = month;
+            last_weekday = weekday;
             last_year = year;
             last_century = century;
  
@@ -55,13 +63,14 @@ void read_rtc() {
             second = get_RTC_register(0x00);
             minute = get_RTC_register(0x02);
             hour = get_RTC_register(0x04);
+            weekday = get_RTC_register(0x06);
             day = get_RTC_register(0x07);
             month = get_RTC_register(0x08);
             year = get_RTC_register(0x09);
             if(century_register != 0) {
                   century = get_RTC_register(century_register);
             }
-      } while( (last_second != second) || (last_minute != minute) || (last_hour != hour) ||
+      } while( (last_second != second) || (last_minute != minute) || (last_hour != hour) || (last_weekday != weekday) ||
                (last_day != day) || (last_month != month) || (last_year != year) ||
                (last_century != century) );
  
@@ -88,7 +97,7 @@ void read_rtc() {
       }
  
       // Calculate the full (4-digit) year
- 
+      
       if(century_register != 0) {
             year += century * 100;
       }
@@ -97,6 +106,18 @@ void read_rtc() {
 
 
 void rtc_print_formatted_time(){
+    switch(weekday){
+          case 1: print("Sunday "); break;
+          case 2: print("Monday "); break;
+          case 3: print("Tuesday "); break;
+          case 4: print("Wednesday "); break;
+          case 5: print("Thursday "); break;
+          case 6: print("Friday "); break;
+          case 7: print("Saturday "); break;
+          default: break;
+
+
+    }
     print(itoa(day,10));
     print("/");
     print(itoa(month,10));

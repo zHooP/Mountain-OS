@@ -7,8 +7,9 @@ unsigned char minute;
 unsigned char hour;
 unsigned char day;
 unsigned char month;
+unsigned char weekday;
 unsigned int year;
-
+unsigned char century;
  
  
 enum {
