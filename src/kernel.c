@@ -9,7 +9,23 @@ unsigned int terminal_start;
 
 
 
+void drawSprite(int sprite[64][64]){
+                
+                // do tjhe algoritehmes here
+                int sy = 0;
+                int sx = 0; 
+                //
 
+                print(" ");
+                print("\n");
+                for(int y = 0; y<sy; y++){
+                    for(int x = 0; x<sx; x++){
+                        print_c("\xDB", sprite[y][x]);
+
+                    }
+                    print("\n");
+                }
+            }
 
 
 
@@ -39,7 +55,7 @@ void kernel_main(multiboot_info_t* mbd, unsigned int magic)
     bootbeep();
     char* cmd;
     int sec = 1;
-    print("Welcome!");
+    print("Welcome! ");
     print("Wilkommen! ");
     print("Bun venit! ");
     print("Dobro dosli!\n");
@@ -94,8 +110,10 @@ void kernel_main(multiboot_info_t* mbd, unsigned int magic)
 
                 
                 uint8_t key = input_key();
-                //print_at(itoa(x,10),2,10);
-                //print_at(itoa(y,10),2,11);
+                print_at("  ",0,24);
+                print_at("  ",3,24);
+                print_at(itoa(x,10),0,24);
+                print_at(itoa(y,10),3,24);
                 if(key==1){
                     terminal_initialize();
                     break;
@@ -136,13 +154,52 @@ void kernel_main(multiboot_info_t* mbd, unsigned int magic)
                 
             }
         } else
-        if(strequ(cmd, "ascii")||strequ(cmd, "asciitable")){
+        if(strequ(cmd, "charlist")||strequ(cmd, "chartable")){
             terminal_putchar(10);
             for(int i = 0; i<256;i++){
                 terminal_putcharnoex(i);
             }
             terminal_putchar(10);
             terminal_putchar(10);
+        }else
+        if(strequ(cmd, "rainbow")){
+            terminal_initialize();
+            for(int i = 0; i<24; i++){
+            for(int j = 0; j<7; j++){
+            print_c("\xDB", 4);
+            print_c("\xDB", 6);
+            print_c("\xDB", 12);
+            print_c("\xDB", 14);
+            print_c("\xDB", 2);
+            print_c("\xDB", 10);
+            print_c("\xDB", 11);
+            print_c("\xDB", 9);
+            print_c("\xDB", 1);
+            print_c("\xDB", 5);
+            print_c("\xDB", 13);
+
+            }
+            print_c("\xDB", 4);
+            print_c("\xDB", 6);
+            print("\n");
+            }
+            
+        }else
+        if(strequ(cmd, "sprite")){
+            
+            
+
+            int sprite[64][64] = {
+                {15,00,15,00,15},
+                {15,00,15,00,00},
+                {15,15,15,00,15},
+                {15,00,15,00,15},
+                {15,00,15,00,15},
+                {15,00,15,00,15},
+            };
+
+            drawSprite(sprite);
+        
         }else
         if(strequ(cmd, "sysinfo")){
             //

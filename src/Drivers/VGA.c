@@ -145,5 +145,3 @@ void print_c(const char* data, uint8_t color)
 	update_cursor(terminal_column, terminal_row);
 }
 
-
-
