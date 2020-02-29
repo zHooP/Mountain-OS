@@ -9,31 +9,19 @@ unsigned int terminal_start;
 
 
 
-void drawSprite(int sprite[64][64]){
-                
-                // do tjhe algoritehmes here
-                int sy = 0;
-                int sx = 0; 
-                //
-
-                print(" ");
-                print("\n");
-                for(int y = 0; y<sy; y++){
-                    for(int x = 0; x<sx; x++){
-                        print_c("\xDB", sprite[y][x]);
-
-                    }
-                    print("\n");
-                }
-            }
 
 
 
 
 //
 
-void kernel_main(multiboot_info_t* mbd, unsigned int magic)
+
+void kernel_main(multiboot_info_t* mbi, unsigned int magic)
 {
+    
+
+
+    
     terminal_initialize();
     gdt_install();
     idt_install();
@@ -45,6 +33,7 @@ void kernel_main(multiboot_info_t* mbd, unsigned int magic)
     mouse_install(); // only used to stop OS from hanging at mouse input
     initAcpi();
     
+
 	print_c("                ooooo      ssss\n", 0xC); timer_wait(128);
     print_c("              oo     oo   ss   \n", 0x7); timer_wait(128);
     print_c("mm  mm  mm    oo     oo    sss \n", 0x9); timer_wait(128);
@@ -189,7 +178,7 @@ void kernel_main(multiboot_info_t* mbd, unsigned int magic)
             
             
 
-            int sprite[64][64] = {
+            int sprite[5][6] = {
                 {15,00,15,00,15},
                 {15,00,15,00,00},
                 {15,15,15,00,15},
@@ -198,9 +187,11 @@ void kernel_main(multiboot_info_t* mbd, unsigned int magic)
                 {15,00,15,00,15},
             };
 
-            drawSprite(sprite);
+            drawSprite(5, 6, sprite);
         
         }else
+
+        
         if(strequ(cmd, "sysinfo")){
             //
 
@@ -215,7 +206,7 @@ void kernel_main(multiboot_info_t* mbd, unsigned int magic)
                 print("no");
             }
             print("\nTotal memory: ");
-            print(itoa(mbd->mmap_addr,10));
+            print(itoa(mbi->mmap_addr,10));
             print(" KiB\n");
             print("Time and date: ");
             rtc_print_formatted_time();

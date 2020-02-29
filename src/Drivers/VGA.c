@@ -145,3 +145,12 @@ void print_c(const char* data, uint8_t color)
 	update_cursor(terminal_column, terminal_row);
 }
 
+void drawSprite(int sy, int sx, int sprite[][sx]){
+    for(int y = 0; y<sy; y++){
+        for(int x = 0; x<sx; x++){
+            print_c("\xDB", sprite[y][x]);
+        }
+        print("\n");
+    }
+}
+

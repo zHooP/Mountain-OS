@@ -275,14 +275,14 @@ char* strcat(char* dest, const char *src)
     d[i+j] = '\0';
     return d;
 }
-
-
-void sleep(int ms){
-    timer_wait(ms);
-}
 void qemudebug(char* s){
     for (size_t i = 0; i < strlen(s); i++){
         outportb(0x3F8, s[i]);
         itoa(2,10);
     }
 }
+
+void sleep(int ms){
+    timer_wait(ms);
+}
+
