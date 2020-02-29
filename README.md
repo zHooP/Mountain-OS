@@ -34,9 +34,9 @@ Feel free to do whatever you want with it.
 
 ## TODO
 # Help needed
-- move to VGA pixel by pixel drawing (with text fonts and print abilities)
 - actual sound instead of beeps
 
 # Time needed
+- move to VGA pixel by pixel drawing (with text fonts and print abilities)
 - mouse support
 
