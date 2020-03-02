@@ -1,5 +1,29 @@
 #include "../all_drivers.h"
 
+
+
+uint8_t* screen = (uint8_t*)0xA0000;
+
+void putpixel(int x,int y, int color) {
+    unsigned where = x*3 + y*2400;
+    screen[where] = color & 255;              // BLUE
+    screen[where + 1] = (color >> 8) & 255;   // GREEN
+    screen[where + 2] = (color >> 16) & 255;  // RED
+}
+
+
+void fillrect(int px, int py, int sx, int sy, int color) {
+ 
+    for (int i = 0; i < sy; i++) {
+        for (int j = 0; j < sx; j++) {
+            putpixel(j+px, i+py, color);
+        }
+    }
+}
+
+
+
+
 inline uint8_t vga_entry_color(uint8_t fg, uint8_t bg)
 {
 	return fg | bg << 4;
@@ -145,12 +169,15 @@ void print_c(const char* data, uint8_t color)
 	update_cursor(terminal_column, terminal_row);
 }
 
-void drawSprite(int sy, int sx, int sprite[][sx]){
-    for(int y = 0; y<sy; y++){
-        for(int x = 0; x<sx; x++){
-            print_c("\xDB", sprite[y][x]);
+void drawSprite(int px, int py, int sy, int sx, int sprite[][sx], int scale){
+    int _ = 0;
+    for(int y = 0; y<sy*scale; y++){
+        for(int x = 0; x<sx*scale; x++){
+            if (sprite[y/scale][x/scale] == -1) {_++; continue;}
+			if (sprite[y/scale][x/scale] == -2) continue;
+            putpixel(x + px - _, y + py - _, sprite[y/scale][x/scale]);
         }
-        print("\n");
+        _ = 0;
     }
 }
 

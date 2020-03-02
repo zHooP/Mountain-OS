@@ -5,9 +5,6 @@ unsigned int terminal_start;
 
 //
 
- 
-
-
 
 
 
@@ -18,10 +15,37 @@ unsigned int terminal_start;
 
 void kernel_main(multiboot_info_t* mbi, unsigned int magic)
 {
+    screen = (uint8_t*)mbi->framebuffer_addr;
+    fillrect(0,0,800,600,30); // fill scren with bhlue
     
+    int sprite[6][20] = {
+                {99,-2,-2,-2,99,-2,99,-2,99,99,99,-2,-2,-2,-2,-2,-2,-2,-2,-2},
+                {99,-2,-2,-2,99,-2,-2,-2,99,-2,99,-2,-2,-2,-2,-2,-2,-2,-2,-2},
+                {99,-2,-2,-2,99,-2,99,-2,99,99,99,-2,-2,-2,-2,-2,-2,-2,-2,-2},
+                {99,-2,99,-2,99,-2,99,-2,99,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2},
+                {99,99,-2,99,99,-2,99,-2,99,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2},
+                {99,-2,-2,-2,99,-2,99,-2,99,-2,-2,-2,99,-2,99,-2,99,-2,-2,-2},
+            };
+
+            
+            drawSprite(0, 0,6, 20, sprite, 10);
 
 
-    
+    int char_test[8][8] = {
+  {-1,-1,99,99,99,99,-1,-1},
+  {-1,-1,-2,99,99,-2,-1,-1},
+  {-1,-1,-2,99,99,-2,-1,-1},
+  {-1,-1,-2,99,99,-2,-1,-1},
+  {-1,-1,-2,99,99,-2,-1,-1},
+  {-1,-1,-2,99,99,-2,-1,-1},
+  {-1,-1,-2,99,99,-2,-1,-1},
+  {-1,-1,99,99,99,99,-1,-1},
+    };
+
+    drawSprite(0, 200, 8, 8, char_test, 3);
+    drawSprite(0, 250, 8, 8, char_test, 9);
+
+    /*
     terminal_initialize();
     gdt_install();
     idt_install();
@@ -32,6 +56,10 @@ void kernel_main(multiboot_info_t* mbi, unsigned int magic)
     timer_install(1000);
     mouse_install(); // only used to stop OS from hanging at mouse input
     initAcpi();
+
+    
+
+    
     
 
 	print_c("                ooooo      ssss\n", 0xC); timer_wait(128);
@@ -238,5 +266,6 @@ void kernel_main(multiboot_info_t* mbi, unsigned int magic)
             print_c("\ncmd: command not found\n", 0x4F);
         }
     }
+    */
 
 }

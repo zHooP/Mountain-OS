@@ -26,10 +26,10 @@ align 4
     dd 0
     dd 0
 
-    dd 1
-    dd 80
-    dd 25
-    dd 8
+    dd 0
+    dd 800
+    dd 600
+    dd 24
 
 
 stublet:

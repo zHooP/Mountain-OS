@@ -26,6 +26,7 @@
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
 
+uint8_t* screen;
 size_t terminal_row;
 size_t terminal_column;
 uint16_t* terminal_buffer;
