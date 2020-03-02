@@ -181,3 +181,15 @@ void drawSprite(int px, int py, int sy, int sx, int sprite[][sx], int scale){
     }
 }
 
+void drawChar(int px, int py, int sprite[8][8], int color, int scale){
+    int _ = 0;
+    for(int y = 0; y<8*scale; y++){
+        for(int x = 0; x<8*scale; x++){
+            if (sprite[y/scale][x/scale] == 0) {_++; continue;}
+			if (sprite[y/scale][x/scale] == 1) continue;
+            putpixel(x + px - _, y + py - _, color);
+        }
+        _ = 0;
+    }
+}
+

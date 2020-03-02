@@ -15,7 +15,7 @@ unsigned int terminal_start;
 
 void kernel_main(multiboot_info_t* mbi, unsigned int magic)
 {
-    screen = (uint8_t*)mbi->framebuffer_addr;
+    screen = (void*)mbi->framebuffer_addr;
     fillrect(0,0,800,600,30); // fill scren with bhlue
     
     int sprite[6][20] = {
@@ -45,7 +45,6 @@ void kernel_main(multiboot_info_t* mbi, unsigned int magic)
     drawSprite(0, 200, 8, 8, char_test, 3);
     drawSprite(0, 250, 8, 8, char_test, 9);
 
-    /*
     terminal_initialize();
     gdt_install();
     idt_install();
@@ -56,6 +55,8 @@ void kernel_main(multiboot_info_t* mbi, unsigned int magic)
     timer_install(1000);
     mouse_install(); // only used to stop OS from hanging at mouse input
     initAcpi();
+
+
 
     
 
@@ -266,6 +267,6 @@ void kernel_main(multiboot_info_t* mbi, unsigned int magic)
             print_c("\ncmd: command not found\n", 0x4F);
         }
     }
-    */
+    
 
 }
